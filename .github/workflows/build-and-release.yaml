@@ -137,8 +137,13 @@ jobs:
           merge-multiple: true
           path: dist
 
+      - name: Get the latest tag
+        id: get_latest_tag
+        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
       - uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+          tag: ${{ env.TAG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
