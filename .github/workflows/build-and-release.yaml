@@ -126,6 +126,16 @@ jobs:
           name: sdist
           path: ./dist/*.tar.gz
 
+  - name: Create and push tag
+      run: |
+        VERSION=$(python -c "import versioneer; print(versioneer.get_version())")
+        git config --global user.name 'Ryan'
+        git config --global user.email 'ryan.hu@cixtech.com'
+        git tag -a $VERSION -m "Release $VERSION"
+        git push origin $VERSION
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release:
     name: Release
     needs: [build_wheels, build_wheels_arm64, build_sdist]
