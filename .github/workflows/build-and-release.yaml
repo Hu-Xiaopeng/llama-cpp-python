@@ -117,6 +117,11 @@ jobs:
           python -m uv pip install build
         shell: cmd
 
+      - name: Install versioneer
+        run: |
+          python -m pip install versioneer
+        shell: bash
+
       - name: Build source distribution
         run: |
           python -m build --sdist
